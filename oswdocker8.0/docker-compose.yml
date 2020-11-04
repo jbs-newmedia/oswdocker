@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: ./src
+        target: /var/www
+    tty: true
+  database:
+    image: mariadb:10.5
+    environment:
+       MYSQL_ROOT_PASSWORD: password
+       MYSQL_DATABASE: database
+       MYSQL_USER: user
+       MYSQL_PASSWORD: password
+       MYSQL_INITDB_SKIP_TZINFO: 1
+    command: --sql_mode=ONLY_FULL_GROUP_BY,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
