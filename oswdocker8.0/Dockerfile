@@ -18,7 +18,6 @@ RUN apt -y install php8.0
 RUN apt -y install libapache2-mod-php8.0 php8.0-bcmath php8.0-gd php8.0-sqlite php8.0-mysqli php8.0-curl php8.0-xml php8.0-mbstring php8.0-zip mcrypt nano
 RUN apt -y autoremove
 RUN sed -i "s|DocumentRoot /var/www/html|DocumentRoot /var/www/html\n\tPHPINIDir /var/www/php |g" /etc/apache2/sites-available/000-default.conf
-RUN apache2ctl restart
 
 #environment
 RUN apt -y install locales
@@ -31,3 +30,6 @@ RUN find /var/www -type d -exec chmod 775 {} +
 RUN find /var/www -type f -exec chmod 664 {} +
 EXPOSE 80
 CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
+
+#restart apache
+RUN apache2ctl restart
