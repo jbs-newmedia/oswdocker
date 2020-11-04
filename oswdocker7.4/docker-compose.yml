@@ -7,7 +7,7 @@ services:
     volumes:
       - type: bind
         source: ./src
-        target: /var/www/html
+        target: /var/www
     tty: true
   database:
     image: mariadb:10.5

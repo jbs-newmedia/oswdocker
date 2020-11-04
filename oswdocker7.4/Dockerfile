@@ -17,15 +17,13 @@ RUN apt -y upgrade
 RUN apt -y install php7.4
 RUN apt -y install libapache2-mod-php7.4 php7.4-bcmath php7.4-gd php7.4-json php7.4-sqlite php7.4-mysqli php7.4-curl php7.4-xml php7.4-mbstring php7.4-zip mcrypt nano
 RUN apt -y autoremove
+RUN sed -i "s|DocumentRoot /var/www/html|DocumentRoot /var/www/html\n\tPHPINIDir /var/www/php |g" /etc/apache2/sites-available/000-default.conf
 RUN apache2ctl restart
 
 #environment
 RUN apt -y install locales
 RUN locale-gen en_US.UTF-8
 RUN locale-gen de_DE.UTF-8
-RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' /etc/php/7.4/apache2/php.ini
-RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' /etc/php/7.4/apache2/php.ini
-RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' /etc/php/7.4/apache2/php.ini
 RUN a2enmod rewrite
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 RUN chgrp -R www-data /var/www
