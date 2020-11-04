@@ -24,10 +24,12 @@ RUN apache2ctl restart
 RUN apt -y install locales
 RUN locale-gen en_US.UTF-8
 RUN locale-gen de_DE.UTF-8
-RUN a2enmod rewrite
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 RUN chgrp -R www-data /var/www
 RUN find /var/www -type d -exec chmod 775 {} +
 RUN find /var/www -type f -exec chmod 664 {} +
 EXPOSE 80
 CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
+
+#restart apache
+RUN apache2ctl restart
