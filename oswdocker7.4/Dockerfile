@@ -26,6 +26,11 @@ RUN locale-gen de_DE.UTF-8
 RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' /etc/php/7.4/apache2/php.ini
 RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' /etc/php/7.4/apache2/php.ini
 RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' /etc/php/7.4/apache2/php.ini
+RUN sed -i -e "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.4/apache2/php.ini
+RUN sed -i -e "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.4/apache2/php.ini
+RUN sed -i -e "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.4/apache2/php.ini
+RUN sed -i -e "s/;date.timezone.*/date.timezone = Europe\/Berlin/" /etc/php/7.4/apache2/php.ini
+RUN echo "opcache.revalidate_freq = 0" >> /etc/php/7.4/mods-available/opcache.ini
 RUN a2enmod rewrite
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 RUN chgrp -R www-data /var/www
