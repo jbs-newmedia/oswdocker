@@ -21,8 +21,9 @@ RUN sed -i "s|DocumentRoot /var/www/html|DocumentRoot /var/www/html\n\tPHPINIDir
 
 #environment
 RUN apt -y install locales
-RUN locale-gen en_US.UTF-8
-RUN locale-gen de_DE.UTF-8
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen
+RUN sed -i '/de_DE.UTF-8/s/^# //g' /etc/locale.gen
+RUN locale-gen
 RUN a2enmod rewrite
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 RUN chgrp -R www-data /var/www
