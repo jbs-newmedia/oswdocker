@@ -25,7 +25,7 @@ RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen
 RUN sed -i '/de_DE.UTF-8/s/^# //g' /etc/locale.gen
 RUN locale-gen
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-RUN chgrp -R www-data /var/www
+RUN chown -R www-data:www-data /var/www 
 RUN find /var/www -type d -exec chmod 775 {} +
 RUN find /var/www -type f -exec chmod 664 {} +
 RUN a2enmod rewrite
