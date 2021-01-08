@@ -15,7 +15,7 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install php7.4
-RUN apt -y install libapache2-mod-php7.4 php7.4-bcmath php7.4-gd php7.4-json php7.4-sqlite php7.4-mysqli php7.4-curl php7.4-xml php7.4-mbstring php7.4-zip mcrypt nano
+RUN apt -y install libapache2-mod-php7.4 php7.4-bcmath php7.4-gd php7.4-json php7.4-sqlite php7.4-mysqli php7.4-curl php7.4-xml php7.4-mbstring php7.4-zip php7.4-intl mcrypt nano
 RUN apt -y autoremove
 RUN sed -i "s|DocumentRoot /var/www/html|DocumentRoot /var/www/html\n\tPHPINIDir /var/www/php |g" /etc/apache2/sites-available/000-default.conf
 
