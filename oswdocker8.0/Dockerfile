@@ -29,7 +29,6 @@ RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/Allo
 RUN chown -R www-data:www-data /var/www 
 RUN find /var/www -type d -exec chmod 775 {} +
 RUN find /var/www -type f -exec chmod 664 {} +
-RUN a2enmod rewrite
 EXPOSE 80
 CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
 
